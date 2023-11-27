@@ -36,13 +36,12 @@ namespace DataConnection
         private SQLiteConnection connected;
         public SQLiteCommand command;
         public SQLiteDataAdapter adapter;
-        public DataSQLITE(string pathToBase): base(pathToBase) { }
+        public DataSQLITE(string pathToBase): base(pathToBase) {
+            connected = new SQLiteConnection(pathToBase);
+        }
         public override DbConnection GetConnection()
         {
-            connected = new SQLiteConnection(base.ConnectSTR);
-            Connection = connected;
             return Connection;
-
         }
         public override DbDataAdapter GetAdapter(string sqlText) { 
             adapter = new SQLiteDataAdapter(sqlText,connected);
@@ -66,19 +65,18 @@ namespace DataConnection
         private SqlConnection connected;
         public SqlCommand command;
         public SqlDataAdapter adapter;
-        public MSSQL(string pathToBase) : base(pathToBase) { }
+        public MSSQL(string pathToBase) : base(pathToBase) {
+            connected = new SqlConnection(pathToBase);
+        }
         public override DbConnection GetConnection()
         {
-            connected = new SqlConnection(base.ConnectSTR);
-            Connection = connected;
-            return Connection;
-
+            return connected;
         }
         public override DbDataAdapter GetAdapter(string sqlText)
         {
             adapter = new SqlDataAdapter(sqlText, connected);
             DataAdapter = adapter;
-            return DataAdapter;
+            return  adapter;
         }
         public override DbCommand GetComand(string sqlText)
         {
